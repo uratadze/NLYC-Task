@@ -29,7 +29,7 @@ class Article extends Model
      */
     public function comments()
     {
-        return $this->belongsToMany(Comment::class, ArticleComment::class, 'article_id','comment_id');
+        return $this->belongsToMany(Comment::class, 'article_comment', 'article_id','comment_id');
     }
 
     /**
@@ -37,7 +37,7 @@ class Article extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, ArticleTag::class, 'article_id','tag_id');
+        return $this->belongsToMany(Tag::class, 'article_tag', 'article_id','tag_id');
     }
 
 }

@@ -24,6 +24,6 @@ class Tag extends Model
      */
     public function articles()
     {
-        return $this->belongsToMany(Article::class, ArticleTag::class, 'article_id','tag_id');
+        return $this->belongsToMany(Article::class, 'article_tag', 'article_id','tag_id');
     }
 }

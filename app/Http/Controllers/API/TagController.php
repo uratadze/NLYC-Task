@@ -4,38 +4,47 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\TagRequest;
+use App\Http\Requests\ArticleRequest;
 use App\Analyzers\TagAnalyzer;
+
+use App\Repository\TagRepositoryInterface; 
 
 class TagController extends Controller
 {
     /**
-     * Create a new analyzer instance.
+     * @var Model
+     */
+    private $tagRepository;
+
+    /**
+     * Create a new repository instance.
      *
-     * @param App\Analyzer\TagAnalyzer
+     * @param App\Repository\TagRepositoryInterface
      * @return void
      */
-    public function __construct(TagAnalyzer $tagAnalyzer)
+    public function __construct(TagRepositoryInterface $tagRepository)
     {
-        $this->tagAnalyzer = $tagAnalyzer;
+        $this->tagRepository = $tagRepository;
     }
 
     /**
-     * @param Illuminate\Http\Request
-     * @return json
+     * @param App\Http\Requests\TagRequest $request
+     * @return JsonResponse
      */
-    public function tags(Request $request)
+    public function tags(TagRequest $request)
     {
-        return $this->tagAnalyzer->tags($request);
+        return $this->tagRepository->getTags($request);
     }
 
     /**
-     * @param Illuminate\Http\Request $request
+     * @param App\Http\Requests\ArticleRequest $request
      * @param integer $id
-     * @return json
+     * @return JsonResponse
      */
-    public function tagArticle(Request $request, $id)
+    public function tagArticle(ArticleRequest $request, $id)
     {
-        return $this->tagAnalyzer->tags($request, $id);
+        return $this->tagRepository->getTagArticle($request, $id);
     }
 
 }
